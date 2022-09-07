@@ -1,16 +1,18 @@
-import React, {useState} from 'react'
+import React, {useContext} from 'react'
 import styles from './home.module.css'
 
 import {Link} from 'react-router-dom'
 import { useFecthingDocuments } from '../../hook/useFecthingDocuments' 
 
 import FeedDetails from '../../component/Feedsdetails'
+import FavoriteContext from '../../managecontext/Anothercontext'
+
 
 const Feeds = () => {
    
   const {documents:posts, loading}  = useFecthingDocuments("posts")
-  
-   const upvotes = "🖤"
+  const {upvotesPostFavorites}  = useContext(FavoriteContext)
+   
   
 
   const handSubmit = (e) => {
@@ -19,7 +21,7 @@ const Feeds = () => {
     
     return(
     <div  className={styles.home}>
-      <h1>Veja nossos postes mais recentes. {upvotes} </h1>
+      <h3>Total de posts curtidos {upvotesPostFavorites.length} 🖤  </h3>
 
       <form onSubmit={handSubmit} className={styles.search_form} >
       
