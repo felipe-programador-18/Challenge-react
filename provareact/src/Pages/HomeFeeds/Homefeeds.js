@@ -1,39 +1,29 @@
 import React, {useState} from 'react'
 import styles from './home.module.css'
 
-import { useNavigate, Link} from 'react-router-dom'
-
-
+import {Link} from 'react-router-dom'
 import { useFecthingDocuments } from '../../hook/useFecthingDocuments' 
-
-
 
 import FeedDetails from '../../component/Feedsdetails'
 
 const Feeds = () => {
-   const [query, setQuery] = useState('')
-   const {documents:posts, loading}  = useFecthingDocuments("posts")
-     
-   const navigate = useNavigate() 
+   
+  const {documents:posts, loading}  = useFecthingDocuments("posts")
+  
+   const upvotes = "🖤"
+  
 
-   const handSubmit = (e) => {
-        e.preventDefault()
-
-       if(query){
-        return navigate(`/search/?q=${query}`)
-       }
-    
-    } 
+  const handSubmit = (e) => {
+        e.preventDefault()    
+  } 
     
     return(
     <div  className={styles.home}>
-      <h1>Veja nossos postes mais recentes.</h1>
+      <h1>Veja nossos postes mais recentes. {upvotes} </h1>
 
       <form onSubmit={handSubmit} className={styles.search_form} >
       
-      
       </form>
-      
       
       <div>
         {loading && <p>Carregando .....</p> }

@@ -19,7 +19,7 @@ const CreateFeeds = () => {
    
    const { updateupvotesFavorites, upvotesPostFavorites} = useContext(FavoriteContext)
    const upvotes = upvotesPostFavorites.includes(user) ? "💛" : "🖤"
-    console.log('testing',upvotes)
+
 
    console.log('user about create', user)
    const navigate = useNavigate()
@@ -55,7 +55,10 @@ const CreateFeeds = () => {
 
    return( <div className={styles.create_post} >
        <h2>Criar post</h2>
-       <p>Escreva o que quiser e compartilhe o seu conhecimento.{upvotes} </p>
+       <p>Escreva o que quiser e compartilhe o seu conhecimento. </p>
+       <button onClick={UpdatesFeedsPost} > 
+          {upvotes}
+       </button>
 
    
         <form onSubmit={handlingSubmit}>
@@ -80,11 +83,7 @@ const CreateFeeds = () => {
             onChange={(e) => setBody(e.target.value) }  ></textarea>
           
           </label> 
-         <button onClick={UpdatesFeedsPost} > 
-          {upvotes}
-         </button>
          
-    
           {!response.loading && <button className='btn' >Cadastrar</button> }
            
            {response.loading && (<button className='btn' disabled >

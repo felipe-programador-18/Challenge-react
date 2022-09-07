@@ -1,27 +1,29 @@
 import styles from './navbar.module.css'
 import { NavLink } from 'react-router-dom'
-
-
 import { useAutentication } from '../hook/useAuthentication'
-
-
 import { useAuthValue } from '../managecontext/Authcontext'  
 
+import FavoriteContext from '../managecontext/Anothercontext'
+import { useContext } from 'react'
+
 const Navbar = () => {
-  //caught user about create providers
+ 
   const {user} = useAuthValue()
-  console.log('verify here' , user)
   const {logout}  = useAutentication()
   
+  const {upvotesPostFavorites}  = useContext(FavoriteContext)
   
   return (<div>
     <nav className={styles.navbar} >
      <NavLink to='/' className={styles.brand} >
-     Seg<span>Ware</span>   
+     Seg<span>Ware</span>  
      </NavLink> 
+     {upvotesPostFavorites.length} 🖤
       
       
       <ul className={styles.links_list} >
+       
+        
         <li>
          <NavLink to='/' className={({isActive}) =>(isActive ? styles.active : '' ) } > Feeds</NavLink>     
         </li>

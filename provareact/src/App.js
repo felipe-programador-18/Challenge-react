@@ -30,7 +30,6 @@ function App() {
   
   const [upvotesFavorites, setupvotesFavorites] = useState([])
   
-  console.log('testet here', user)
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setUser(user)
@@ -42,14 +41,14 @@ function App() {
     const saveUpvotes= JSON.parse(window.localStorage.getItem(favoritesKey)) || []
     setupvotesFavorites(saveUpvotes)
   }
-  const updateFavoritePost= (name) => {
+  const updateFavoritePost= (user) => {
     const updateFavorited = [...upvotesFavorites]
-    const favoritesIndex = upvotesFavorites.indexOf(name)
+    const favoritesIndex = upvotesFavorites.indexOf(user)
      
      if(favoritesIndex >= 0){
       updateFavorited.splice(favoritesIndex,1) 
      }else{
-      updateFavorited.push(name)
+      updateFavorited.push(user)
      }
      window.localStorage.setItem(favoritesKey, JSON.stringify(updateFavorited))
      setupvotesFavorites(updateFavorited)
@@ -63,9 +62,7 @@ function App() {
     return <p>Loading ....</p>
   }
 
-  
-  
-  
+
   return ( 
   <div className="App">
     <AuthProvider value={{user}}>   
