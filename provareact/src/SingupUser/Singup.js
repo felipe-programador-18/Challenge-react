@@ -1,0 +1,99 @@
+import React,{useState, useEffect} from 'react'
+
+import { useAutentication } from '../hook/useAuthentication'
+
+import styles from './singin.module.css'
+
+const SingupUser =  () => {
+ const [displayName, setdisplayName ] = useState("")
+ const [email, setEmail] = useState("")
+ const [password, setPassword] = useState("")
+ const [confirmPassword, setConfirmPassword] = useState("")
+ const [error, setError] = useState("")
+  
+ const {createUser,error:authError, loading} =useAutentication()
+ 
+
+ const handlingSubmit = async (e) => {
+    e.preventDefault()
+    setError("")
+
+    const user = {
+        displayName,
+        email,
+        password,
+    }
+    if(password !== confirmPassword){
+        setError("A senha precisam ser iguais!!")
+     return
+    }
+    const res = await  createUser(user)
+    console.log(user)
+  }
+
+  useEffect(() => {
+     if(authError){
+        setError(authError)
+     }
+  },[authError])
+
+
+  return ( <div className={styles.register} >
+       <h1>Cadastre-se para Adicionar seus posts!</h1>
+
+       <p>Crie seu Usuário!</p>
+       <form onSubmit={handlingSubmit}>
+          <label>
+            <span>Nome:</span>
+            <input type='text' 
+             name='displayName' 
+             required 
+             placeholder='Nome do Usuário' 
+             value={displayName}  
+             onChange={(e)=>  setdisplayName(e.target.value)} />
+          </label>
+         
+          <label>
+            <span>Email:</span>
+            <input type='email' 
+             name='email' 
+             required 
+             placeholder='E-mail do Usuário'  
+             value={email}     
+             onChange={(e)=>   setEmail(e.target.value)}  />
+          </label>
+
+          <label>
+            <span>Senha:</span>
+            <input type='password'
+             name='password' 
+             required 
+             placeholder='Insira sua Senha'  
+             value={password} 
+             onChange={(e) => setPassword(e.target.value)} />
+          </label>
+
+          <label>
+            <span>Confirmação de Senha:</span>
+            <input type='password' 
+             name='ConfirmPassword'
+             required
+             placeholder='Confirme sua senha'
+             value={confirmPassword} 
+             onChange={(e) => setConfirmPassword(e.target.value) }    />
+          </label>
+          
+           {!loading && <button className='btn' >Cadastrar</button> }
+           
+           {loading && (<button className='btn' disabled >
+            Aguarde .... 
+           </button>) }
+
+          {error && <p className='error' > {error} </p>}
+
+       </form>
+
+    </div>)
+}
+
+export default SingupUser
