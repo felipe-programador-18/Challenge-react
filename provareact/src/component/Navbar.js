@@ -3,22 +3,18 @@ import { NavLink } from 'react-router-dom'
 import { useAutentication } from '../hook/useAuthentication'
 import { useAuthValue } from '../managecontext/Authcontext'  
 
-import FavoriteContext from '../managecontext/Anothercontext'
-import { useContext } from 'react'
-
 const Navbar = () => {
  
   const {user} = useAuthValue()
   const {logout}  = useAutentication()
-  
-  const {upvotesPostFavorites}  = useContext(FavoriteContext)
+
   
   return (<div>
     <nav className={styles.navbar} >
      <NavLink to='/' className={styles.brand} >
      Seg<span>Ware</span>  
      </NavLink> 
-     {upvotesPostFavorites.length} 🖤
+    
       
       
       <ul className={styles.links_list} >
